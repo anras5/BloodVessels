@@ -17,8 +17,8 @@ class ClassicClassifier:
         self.kernel_size = kernel_sizes
         self.contour_cutoff = contour_cutoff
 
-    def process(self, image: numpy.ndarray) -> numpy.ndarray:
-        """Function used to process an image.
+    def predict(self, image: numpy.ndarray) -> numpy.ndarray:
+        """Function used to predict an image.
 
         Processing consists of 8 steps.
         1. Separation data into RGB channels and extraction of the green channel for processing.
@@ -76,4 +76,3 @@ class ClassicClassifier:
         _, proc_image = cv2.threshold(proc_image, 15, 255, cv2.THRESH_BINARY)
 
         return proc_image
-
