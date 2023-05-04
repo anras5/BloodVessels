@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from parts import UpBlock, DownBlock, OutBlock, ConvolutionalBlock
+from notebooks.unet.parts import DownBlock, ConvolutionalBlock, UpBlock, OutBlock
 
 
 class UNet(nn.Module):

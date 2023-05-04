@@ -45,6 +45,8 @@ class OutBlock(nn.Module):
     def __init__(self, in_c, out_c):
         super(OutBlock, self).__init__()
         self.conv = nn.Conv2d(in_c, out_c, kernel_size=1)
+        self.sig = nn.Sigmoid()
 
     def forward(self, x):
-        return self.conv(x)
+        x = self.conv(x)
+        return self.sig(x)
