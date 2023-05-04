@@ -7,8 +7,8 @@ import seaborn as sns
 
 class ConfusionMatrix:
 
-    def __init__(self, test, pred):
-        self.matrix = confusion_matrix(test.flatten(), pred.flatten())
+    def __init__(self, true, pred):
+        self.matrix = confusion_matrix(true.flatten(), pred.flatten())
         self.tn, self.fp, self.fn, self.tp = self.matrix.ravel()
 
         self.accuracy = (self.tp + self.tn) / (self.tn + self.fp + self.fn + self.tp)
@@ -23,7 +23,7 @@ class ConfusionMatrix:
     def __str__(self):
         return f"{'Accuracy:'.ljust(13, ' ')}{self.accuracy}\n" \
                f"{'Recall:'.ljust(13, ' ')}{self.recall}\n" \
-               f"{'Precision'.ljust(13, ' ')}{self.recall}\n" \
+               f"{'Precision'.ljust(13, ' ')}{self.precision}\n" \
                f"{'Specificity:'.ljust(13, ' ')}{self.specificity}\n"
 
     def heatmap(self, annot=True, fmt=".0f", norm=LogNorm(), cmap='crest', cbar_kws=None):
