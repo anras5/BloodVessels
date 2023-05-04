@@ -24,8 +24,7 @@ app.config.from_mapping(
 class InputForm(FlaskForm):
     input_image = FileField("Prześlij plik",
                             validators=[FileRequired(), FileAllowed(['jpg', 'png'])])
-    is_map = BooleanField("Posiadam mapę ekspercką", default=False)
-    input_map = FileField("Prześlij mapę ekspercką",
+    input_map = FileField("Prześlij mapę ekspercką (opcjonalne)",
                           validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField()
 
@@ -100,15 +99,16 @@ def home():
         f.save(image_path)
 
         f_m = form.input_map.data
-        f_m_filename = secure_filename(f_m.filename)
-        map_path = os.path.join(user_path, f_m_filename)
-        f_m.save(map_path)
+        if f_m is not None:
+            f_m_filename = secure_filename(f_m.filename)
+            map_path = os.path.join(user_path, f_m_filename)
+            f_m.save(map_path)
 
-        # ------------------------------------------------------------------------------------------------------------ #
-        # MAKE PREDICTIONS
-
-        classic_path, cm_classic = predict_classic(image_path, user_path, map_path)
-        unet_path, cm_unet = predict_unet(image_path, user_path, map_path)
+            classic_path, cm_classic = predict_classic(image_path, user_path, map_path)
+            unet_path, cm_unet = predict_unet(image_path, user_path, map_path)
+        else:
+            classic_path, cm_classic = predict_classic(image_path, user_path)
+            unet_path, cm_unet = predict_unet(image_path, user_path)
 
         # ------------------------------------------------------------------------------------------------------------ #
         # RESIZE UPLOADED FILES TO 512x512
@@ -117,18 +117,25 @@ def home():
         img = cv2.resize(img, dsize=(512, 512), interpolation=cv2.INTER_CUBIC)
         cv2.imwrite(image_path, img)
 
-        ans = cv2.imread(map_path, cv2.IMREAD_GRAYSCALE)
-        ans = cv2.resize(ans, dsize=(512, 512), interpolation=cv2.INTER_CUBIC)
-        cv2.imwrite(map_path, ans)
+        if f_m is not None:
+            ans = cv2.imread(map_path, cv2.IMREAD_GRAYSCALE)
+            ans = cv2.resize(ans, dsize=(512, 512), interpolation=cv2.INTER_CUBIC)
+            cv2.imwrite(map_path, ans)
 
         pred = cv2.imread(classic_path, cv2.IMREAD_GRAYSCALE)
         pred = cv2.resize(pred, dsize=(512, 512), interpolation=cv2.INTER_CUBIC)
         cv2.imwrite(classic_path, pred)
 
-        return render_template('result.html',
-                               image_path=image_path, map_path=map_path,
-                               classic_path=classic_path, unet_path=unet_path,
-                               cm_classic=cm_classic, cm_unet=cm_unet)
+        if f_m is not None:
+            return render_template('result.html',
+                                   image_path=image_path, map_path=map_path,
+                                   classic_path=classic_path, unet_path=unet_path,
+                                   cm_classic=cm_classic, cm_unet=cm_unet)
+        else:
+            return render_template('result.html',
+                                   image_path=image_path,
+                                   classic_path=classic_path, unet_path=unet_path,
+                                   cm_classic=cm_classic, cm_unet=cm_unet)
 
     print(form.errors)
     return render_template('index.html', form=form)

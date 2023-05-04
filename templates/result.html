@@ -7,54 +7,64 @@
 
     <div class="container">
         <div class="row my-3">
-            <div class="col-md-6">
-                <p>Obraz wejściowy:</p>
-                <div class="img-box">
-                    <img src="{{ image_path }}"
-                         alt="users photo"
-                         class="img-fluid rounded"
-                         width="512"
-                    >
-                </div>
+            {% if map_path %}
+                <div class="col-md-6">
+            {% else %}
+                <div class="col-md-12">
+            {% endif %}
+            <p>Obraz wejściowy:</p>
+            <div class="img-box">
+                <img src="{{ image_path }}"
+                     alt="users photo"
+                     class="img-fluid rounded"
+                     width="512"
+                >
             </div>
-            <div class="col-md-6">
-                <p>Mapa ekspercka:</p>
-                <div class="img-box">
-                    <img src="{{ map_path }}"
-                         alt="expert map"
-                         class="img-fluid rounded"
-                         width="512"
-                    >
+            </div>
+            {% if map_path %}
+                <div class="col-md-6">
+                    <p>Mapa ekspercka:</p>
+                    <div class="img-box">
+                        <img src="{{ map_path }}"
+                             alt="expert map"
+                             class="img-fluid rounded"
+                             width="512"
+                        >
+                    </div>
+                </div>
+            {% endif %}
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Wynik działania - podejście klasyczne:</p>
+                    <div class="img-box">
+                        <img src="{{ classic_path }}"
+                             alt="users photo"
+                             class="img-fluid rounded"
+                             width="512"
+                        >
+                    </div>
+                    {% if map_path %}
+                        <p>{{ cm_classic }}</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <p>Wynik działania - sieć neuronowa:</p>
+                    <div class="img-box">
+                        <img src="{{ unet_path }}"
+                             alt="expert map"
+                             class="img-fluid rounded"
+                             width="512"
+                        >
+                    </div>
+                    {% if map_path %}
+                        <p>{{ cm_unet }}</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <p>Wynik działania - podejście klasyczne:</p>
-                <div class="img-box">
-                    <img src="{{ classic_path }}"
-                         alt="users photo"
-                         class="img-fluid rounded"
-                         width="512"
-                    >
-                </div>
-                <p>{{ cm_classic }}</p>
-            </div>
-            <div class="col-md-6">
-                <p>Wynik działania - sieć neuronowa:</p>
-                <div class="img-box">
-                    <img src="{{ unet_path }}"
-                         alt="expert map"
-                         class="img-fluid rounded"
-                         width="512"
-                    >
-                </div>
-                <p>{{ cm_unet }}</p>
-            </div>
-        </div>
-    </div>
 
-    <p class="mt-5">Aby przesłać kolejny obraz, kliknij poniższy przycisk:</p>
-    <a href="{{ url_for('home') }}" class="btn btn-success">Powrót</a>
+        <p class="mt-5">Aby przesłać kolejny obraz, kliknij poniższy przycisk:</p>
+        <a href="{{ url_for('home') }}" class="btn btn-success">Powrót</a>
 
 {% endblock %}

@@ -16,17 +16,10 @@
             </div>
             <div class="row my-3">
                 <div class="col-12 mx-auto">
-                    {{ form.is_map.label(class_='form-label') }} <br>
-                    {{ form.is_map() }}
-                </div>
-            </div>
-            <div class="row my-3 d-none" id="map">
-                <div class="col-12 mx-auto">
                     {{ form.input_map.label(class_='form-label') }} <br>
                     {{ form.input_map(class_='form-control') }}
                 </div>
             </div>
-
             <div class="row my-2">
                 <div class="col-12 mx-auto" id="submit-btn">
                     {{ form.submit(class_='btn btn-success') }}
@@ -48,16 +41,6 @@
             document.getElementById("spinner").classList.remove("d-none");
             document.getElementById("submit-btn").classList.add("d-none");
         });
-
-        let isMap = document.querySelector("input[name='is_map']");
-        let patient = document.getElementById('map');
-        isMap.addEventListener("change", function () {
-            if(this.checked) {
-                patient.classList.remove("d-none");
-            } else {
-                patient.classList.add("d-none");
-            }
-        })
 
     </script>
 {% endblock %}
