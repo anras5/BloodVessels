@@ -21,10 +21,10 @@ class ConfusionMatrix:
                                       columns=['Predicted Negative', 'Predicted Positive'])
 
     def __str__(self):
-        return f"{'Accuracy:'.ljust(13, ' ')}{self.accuracy}\n" \
-               f"{'Recall:'.ljust(13, ' ')}{self.recall}\n" \
-               f"{'Precision'.ljust(13, ' ')}{self.precision}\n" \
-               f"{'Specificity:'.ljust(13, ' ')}{self.specificity}\n"
+        return f"{'Accuracy:'.ljust(13, ' ')}{self.accuracy:.3f}\n" \
+               f"{'Recall:'.ljust(13, ' ')}{self.recall:.3f}\n" \
+               f"{'Precision'.ljust(13, ' ')}{self.precision:.3f}\n" \
+               f"{'Specificity:'.ljust(13, ' ')}{self.specificity:.3f}\n"
 
     def heatmap(self, annot=True, fmt=".0f", norm=LogNorm(), cmap='crest', cbar_kws=None):
         if cbar_kws is None:
