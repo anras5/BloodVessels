@@ -2,7 +2,7 @@
 
 Detection of retinal blood vessels using classical methods (edge detection using filters) and deep neural network methods (UNet).
 
-## Web pplication
+## Web application
 
 Windows-64
 
