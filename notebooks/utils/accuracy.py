@@ -4,6 +4,7 @@ import numpy as np
 
 
 def calculate_accuracy(y_pred, y_true):
+    """Function used to compute accuracy for two pytorch tensors"""
     y_true = y_true.cpu().detach().numpy()
     y_true = y_true > 0.5
     y_true = y_true.astype(np.uint8)

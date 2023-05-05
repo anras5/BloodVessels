@@ -3,6 +3,13 @@ import torch.nn as nn
 
 
 class ConvolutionalBlock(nn.Module):
+    """Convolutional block for UNet.
+    Consists of two Convolutional layers with 3x3 kernel and 1 pixel padding.
+    Each Convolutional layer is ended with ReLU activation function.
+
+    Useful links:
+    1. https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md
+    """
     def __init__(self, in_c, out_c):
         super().__init__()
         self.double_conv = nn.Sequential(
@@ -19,6 +26,7 @@ class ConvolutionalBlock(nn.Module):
 
 
 class DownBlock(nn.Module):
+    """Down Block consists of `ConvolutionalBlock` + MaxPooling layer with 2x2 kernel"""
     def __init__(self, in_c, out_c):
         super().__init__()
         self.conv = ConvolutionalBlock(in_c, out_c)
@@ -30,6 +38,7 @@ class DownBlock(nn.Module):
 
 
 class UpBlock(nn.Module):
+    """Up Block consists of `ConvTranspose` layer with 2x2 kernel and 2 pixels stride"""
     def __init__(self, in_c, out_c):
         super().__init__()
         self.up = nn.ConvTranspose2d(in_c, out_c, kernel_size=2, stride=2)
@@ -42,6 +51,9 @@ class UpBlock(nn.Module):
 
 
 class OutBlock(nn.Module):
+    """Out Block is the final layer of the UNet.
+    It consists of one Convolutional Layer with 1x1 kernel and sigmoid activation function.
+    """
     def __init__(self, in_c, out_c):
         super(OutBlock, self).__init__()
         self.conv = nn.Conv2d(in_c, out_c, kernel_size=1)
