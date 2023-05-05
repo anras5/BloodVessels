@@ -2,7 +2,7 @@
 
 Detection of retinal blood vessels using classical methods (edge detection using filters) and deep neural network methods (UNet).
 
-## Web application
+## Web pplication
 
 Windows-64
 
@@ -15,6 +15,12 @@ conda activate <env>
 python main.py
 ```
 
+Web application allows the user to upload their own images and see the results.
+
+![img.png](readme-images/main_page.png)
+
+![results.png](readme-images/results.png)
+
 ## Jupyter Notebook
 
 All core functionalities of the project are located in the `notebooks` folder.
@@ -25,14 +31,6 @@ All core functionalities of the project are located in the `notebooks` folder.
 - PyTorch
 - OpenCV
 - Flask
-
-## Web application
-
-Web application allows the user to upload their own images and see the results.
-
-![img.png](readme-images/main_page.png)
-
-![results.png](readme-images/results.png)
 
 ## Contact
 
