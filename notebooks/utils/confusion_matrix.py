@@ -6,6 +6,7 @@ import seaborn as sns
 
 
 class ConfusionMatrix:
+    """Class used to compute confusion matrix, accuracy, recall, precision and specificity for two numpy.ndarray"""
 
     def __init__(self, true, pred):
         self.matrix = confusion_matrix(true.flatten(), pred.flatten())
@@ -27,6 +28,7 @@ class ConfusionMatrix:
                f"{'Specificity:'.ljust(13, ' ')}{self.specificity:.3f}\n"
 
     def heatmap(self, annot=True, fmt=".0f", norm=LogNorm(), cmap='crest', cbar_kws=None):
+        """Display a heatmap of confusion matrix using Seaborn"""
         if cbar_kws is None:
             cbar_kws = {'ticks': []}
         sns.heatmap(self.df_matrix, annot=annot, fmt=fmt, norm=norm, cmap=cmap, cbar_kws=cbar_kws)

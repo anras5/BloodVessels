@@ -5,7 +5,14 @@ from notebooks.unet.parts import DownBlock, ConvolutionalBlock, UpBlock, OutBloc
 
 
 class UNet(nn.Module):
+    """Class used to build actual UNet using parts"""
     def __init__(self, n_channels):
+        """
+        Parameters
+        ----------
+        n_channels: int
+            number of input channels
+        """
         super(UNet, self).__init__()
 
         self.down1 = DownBlock(n_channels, 64)

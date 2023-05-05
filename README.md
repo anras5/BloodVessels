@@ -2,7 +2,7 @@
 
 Detection of retinal blood vessels using classical methods (edge detection using filters) and deep neural network methods (UNet).
 
-## How to run web application
+## Web application
 
 Windows-64
 
@@ -14,6 +14,10 @@ conda create --name <env> --file .\requirements.txt
 conda activate <env>
 python main.py
 ```
+
+## Jupyter Notebook
+
+All core functionalities of the project are located in the `notebooks` folder.
 
 ## Built with
 
